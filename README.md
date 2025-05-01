@@ -1,42 +1,42 @@
-# 🎬 Консольное приложение для поиска фильмов (на базе данных Sakila)
+# 🎮 Console-Based Movie Search Application (Powered by Sakila Database)
 
-## 📌 Описание проекта
+## 📌 Project Description
 
-Это консольное Python-приложение позволяет интерактивно искать фильмы в базе данных **Sakila**. Реализован функционал поиска по ключевым словам, жанру и году, а также сохранения истории запросов и отображения самых популярных запросов.
+This is a console-based Python application for interactive movie search using the **Sakila** database. It supports searching by keywords, genre, and release year, while also storing search history and displaying the most popular search queries.
 
-База данных развернута на сервере под названием:  
+The database is deployed on the following server:  
 `group_111124_fp_{Vadym_Prudnikov}`
 
 ---
 
-## 📚 Содержание
+## 📚 Table of Contents
 
-1. [Описание проекта](#-описание-проекта)  
-2. [Этап 1 — Изучение структуры базы данных](#этап-1--изучение-структуры-базы-данных)  
-3. [Этап 2 — Разработка SQL-запросов](#этап-2--разработка-sql-запросов)  
-4. [Этап 3 — Разработка консольного приложения](#этап-3--разработка-консольного-приложения)  
-5. [Установка и запуск](#-установка-и-запуск)  
-6. [Доступные команды](#-доступные-команды)  
-7. [Качество кода и тестирование](#-качество-кода-и-тестирование)  
-8. [Автор](#-автор)  
-
----
-
-## Этап 1 — Изучение структуры базы данных
-
-- Установлено соединение с базой данных Sakila.  
-- Изучены ключевые таблицы: `film`, `category`, `language`, `film_category`, `inventory`, `rental` и связи между ними.  
-- Сформировано понимание, как извлекать название фильма, жанр, дату выпуска и сопутствующую информацию.
+1. [Project Description](#-project-description)  
+2. [Stage 1 — Studying the Database Structure](#stage-1--studying-the-database-structure)  
+3. [Stage 2 — Developing SQL Queries](#stage-2--developing-sql-queries)  
+4. [Stage 3 — Building the Console Application](#stage-3--building-the-console-application)  
+5. [Installation and Launch](#-installation-and-launch)  
+6. [Available Commands](#-available-commands)  
+7. [Code Quality and Testing](#-code-quality-and-testing)  
+8. [Author](#-author)  
 
 ---
 
-## Этап 2 — Разработка SQL-запросов
+## Stage 1 — Studying the Database Structure
 
-- Разработаны SQL-запросы для:
-  - Поиска фильмов по ключевому слову в названии.
-  - Поиска фильмов по жанру и году выпуска.
-  - Сохранения поисковых запросов в таблицу `popular_queries` с фиксированием типа запроса, параметров и времени.
-  - Получения списка самых популярных запросов по частоте использования:
+- Established a connection to the Sakila database.  
+- Analyzed key tables: `film`, `category`, `language`, `film_category`, `inventory`, `rental`, and their relationships.  
+- Gained an understanding of how to retrieve movie titles, genres, release dates, and related metadata.
+
+---
+
+## Stage 2 — Developing SQL Queries
+
+- Implemented SQL queries for:
+  - Searching for movies by keyword in the title.
+  - Searching by genre and release year.
+  - Logging each search query to the `popular_queries` table with type, parameters, and timestamp.
+  - Retrieving the most frequent query types:
 
 ```sql
 SELECT search_type, COUNT(*) AS cnt
@@ -45,55 +45,55 @@ GROUP BY search_type
 ORDER BY cnt DESC;
 ```
 
-- Все запросы корректно фильтруют и ограничивают вывод (10+ результатов).  
-- Реализована обработка случаев отсутствия результатов (отображение пустого списка без ошибок).
+- All queries include filtering and result limits (10+ items).  
+- Handles cases where no results are found (returns an empty list without errors).
 
 ---
 
-## Этап 3 — Разработка консольного приложения
+## Stage 3 — Building the Console Application
 
-- Приложение запускается через файл `main.py` и работает в интерактивном режиме.
-- Команды:
+- The application is launched via the `main.py` file and operates in interactive mode.
+- Supported commands:
 
-  1. **Поиск по ключевому слову:**
-     - Ввод: `search keyword <ключевое_слово>`
-     - Ищет фильмы, в названии которых встречается заданное слово (регистр не учитывается).
-     - Отображает 10+ релевантных результатов.
+  1. **Search by keyword:**
+     - Input: `search keyword <your_keyword>`
+     - Searches for movies where the keyword appears in the title (case-insensitive).
+     - Returns at least 10 relevant results.
 
-  2. **Поиск по жанру и году:**
-     - Ввод: `search genre <жанр> <год>`
-     - Ищет фильмы указанного жанра, выпущенные в заданном году.
+  2. **Search by genre and year:**
+     - Input: `search genre <genre> <year>`
+     - Finds movies of a specified genre released in the given year.
 
-  3. **Просмотр популярных запросов:**
-     - Ввод: `popular`
-     - Показывает топ-частоиспользуемых команд.
+  3. **Show popular queries:**
+     - Input: `popular`
+     - Displays the most frequently used search types.
 
-  4. **Выход из программы:**
-     - Ввод: `exit`
+  4. **Exit the program:**
+     - Input: `exit`
 
-- Обработка ошибок: потеря соединения с БД, некорректный ввод, пустой результат запроса.
-- Приложение остаётся активным после выполнения команды и ожидает следующего ввода.
+- Includes error handling for database connection loss, invalid input, and empty search results.
+- The app remains active after each command, waiting for the next user input.
 
 ---
 
-##  Установка и запуск
+## ⚙️ Installation and Launch
 
-### 1. Клонировать репозиторий:
+### 1. Clone the repository:
 
 ```bash
 git clone https://github.com/your-username/sakila_project.git
 cd sakila_project
 ```
 
-### 2. Установить зависимости:
+### 2. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Настроить подключение к базе данных
+### 3. Configure database connection
 
-Создайте файл `.env` или укажите параметры в `config.py`:
+Create a `.env` file or define the parameters in `config.py`:
 
 ```env
 DB_HOST=localhost
@@ -103,7 +103,7 @@ DB_USER=your_user
 DB_PASSWORD=your_password
 ```
 
-### 4. Запустить приложение:
+### 4. Run the application:
 
 ```bash
 python main.py
@@ -111,30 +111,28 @@ python main.py
 
 ---
 
-##  Доступные команды
+## 💻 Available Commands
 
-| Команда                          | Описание                                                   |
-|----------------------------------|------------------------------------------------------------|
-| `search keyword <слово>`         | Поиск фильмов по ключевому слову в названии.               |
-| `search genre <жанр> <год>`      | Поиск фильмов по жанру и году выпуска.                     |
-| `popular`                        | Вывод самых популярных поисковых запросов.                 |
-| `exit`                           | Завершение работы программы.                               |
-
----
-
+| Command                          | Description                                                 |
+|----------------------------------|-------------------------------------------------------------|
+| `search keyword <word>`          | Searches for movies with the given keyword in the title.    |
+| `search genre <genre> <year>`    | Searches for movies by genre and release year.              |
+| `popular`                        | Displays the most popular search query types.               |
+| `exit`                           | Exits the application.                                      |
 
 ---
 
-##  Качество кода и тестирование
+## 🧹 Code Quality and Testing
 
-- Код соответствует стандарту [PEP 8](https://peps.python.org/pep-0008/).
-- Все ключевые функции сопровождаются комментариями.
-- Реализована обработка всех возможных сценариев, включая ошибки и пустые результаты.
-- README содержит полную документацию по установке, запуску и использованию.
+- The code adheres to [PEP 8](https://peps.python.org/pep-0008/) standards.
+- Key functions are well-commented.
+- All edge cases are handled, including invalid input and no results.
+- This README includes full documentation on setup, usage, and functionality.
 
 ---
 
-##  Автор
+## 📝 Author
 
 **Vadym Prudnikov**  
-Учебный проект, выполненный в рамках изучения SQL, Python и основ мануального/автоматизированного тестирования.
+An educational project developed as part of learning SQL, Python, and the fundamentals of manual/automated testing.
+
