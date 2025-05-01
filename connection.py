@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 import pymysql
 from dotenv import load_dotenv
+import sys
 
 load_dotenv(Path('.env'))
 #Настройки подключения
@@ -26,6 +27,7 @@ try:
     print("Connection successful!")
 except pymysql.MySQLError as e:
     print(f"Ошибка подключения к базе данных \n{e}")
+    sys.exit(1)
 
 
 # Подключение к базам sakila и group_111124_fp_Vadym_Prudnikov
