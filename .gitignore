@@ -1,0 +1,15 @@
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Enviroments files to ignore
+.env
+.venv/
+env/
+
+# Project plan file
+/plan.md
